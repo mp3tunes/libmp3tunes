@@ -1,0 +1,14 @@
+libmp3tunes (1.0.1) unstable; urgency=low
+
+  * Set license to LGPL, added support for overriding harmony host and port settings from environment variables
+  * Updated handling of requeueing downloads which are not successful
+  * Updated the build system to respect turning off components of the library (locker or harmony support)
+  * Added support for device bitrate data in download messages
+
+ -- Derek Ford <derek@mp3tunes.com>  Mon,  21 Apr 2008 13:57:14 +0300
+
+libmp3tunes (1.0) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Derek Ford <derek@mp3tunes.com>  Fri,  3 Feb 2006 14:54:40 +0300
