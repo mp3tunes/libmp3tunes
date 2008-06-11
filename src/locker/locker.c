@@ -486,7 +486,7 @@ int mp3tunes_locker_session_valid(mp3tunes_locker_object_t *obj) {
         }
     }
 
-    //printf("Fetch result:\n%s\n", chunk->data);
+    /*printf("Fetch result:\n%s\n", chunk->data);*/
     return 0; /* session is valid*/
 }
 
