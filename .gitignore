@@ -50,3 +50,5 @@ src/locker/liblocker_la-locker.o
 *.o
 *.lo
 *.la
+Doxyfile
+*.kdevelop
