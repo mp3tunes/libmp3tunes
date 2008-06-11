@@ -1005,6 +1005,143 @@ int mp3tunes_locker_playlists(mp3tunes_locker_object_t *obj, mp3tunes_locker_pla
     return 0;
 }
 
+int mp3tunes_locker_search(mp3tunes_locker_object_t *obj, mp3tunes_locker_artist_list_t **artists, mp3tunes_locker_album_list_t **albums, mp3tunes_locker_track_list_t **tracks, char *query) {
+    xml_xpath_t* xml_xpath;
+
+    char type[20] = "";
+    if( artists != NULL ) {
+      strcat( type, "artist," );
+    }
+    if( albums != NULL ) {
+      strcat( type, "album," );
+    }
+    if( tracks != NULL ) {
+      strcat( type, "track," );
+    }
+    if( type == "" ) {
+      return -1;
+    }
+    /*printf("type: '%s' query: '%s'\n", placeholder, query);*/
+
+    xml_xpath = mp3tunes_locker_api_simple_fetch(obj, MP3TUNES_SERVER_API, "api/v1/lockerSearch", "type", type, "s", query, NULL);
+
+    if(artists != NULL) {
+        xmlXPathObjectPtr xpath_obj;
+        xmlNodeSetPtr nodeset;
+        xmlNodePtr node;
+        int i;
+        mp3tunes_locker_artist_list_init(artists);
+
+        if (xml_xpath == NULL) {
+            return -1;
+        }
+
+        xpath_obj = xml_xpath_query(xml_xpath, "/mp3tunes/artistList/item");
+        if (xpath_obj == NULL) {
+            return -1;
+        }
+
+        nodeset = xpath_obj->nodesetval;
+
+        for (i = 0; i < nodeset->nodeNr; i++) {
+            node = nodeset->nodeTab[i];
+            xml_xpath_t* xml_xpath_context = xml_xpath_context_init(xml_xpath, node);
+            mp3tunes_locker_artist_t *artist = (mp3tunes_locker_artist_t*)malloc(sizeof(mp3tunes_locker_artist_t));
+            memset(artist, 0, sizeof(mp3tunes_locker_artist_t));
+
+            artist->artistId = xml_xpath_get_integer(xml_xpath_context, "artistId");
+            artist->artistName = xml_xpath_get_string(xml_xpath_context, "artistName");
+            artist->artistSize = xml_xpath_get_integer(xml_xpath_context, "artistSize");
+            artist->albumCount = xml_xpath_get_integer(xml_xpath_context, "albumCount");
+            artist->trackCount = xml_xpath_get_integer(xml_xpath_context, "trackCount");
+
+            mp3tunes_locker_artist_list_add(artists, artist);
+            xml_xpath_deinit(xml_xpath_context);
+        }
+        xmlXPathFreeObject(xpath_obj);
+    }
+
+    if( albums != NULL ) {
+        xmlXPathObjectPtr xpath_obj;
+        xmlNodeSetPtr nodeset;
+        xmlNodePtr node;
+        int i;
+
+        mp3tunes_locker_album_list_init(albums);
+
+        xpath_obj = xml_xpath_query(xml_xpath, "/mp3tunes/albumList/item");
+
+        if (xpath_obj == NULL) {
+            return -1;
+        }
+
+        nodeset = xpath_obj->nodesetval;
+
+        for (i = 0; i < nodeset->nodeNr; i++) {
+            node = nodeset->nodeTab[i];
+            xml_xpath_t* xml_xpath_context = xml_xpath_context_init(xml_xpath, node);
+            mp3tunes_locker_album_t *album = (mp3tunes_locker_album_t*)malloc(sizeof(mp3tunes_locker_album_t));
+            memset(album, 0, sizeof(mp3tunes_locker_album_t));
+
+            album->albumId = xml_xpath_get_integer(xml_xpath_context, "albumId");
+            album->albumTitle = xml_xpath_get_string(xml_xpath_context, "albumTitle");
+            album->artistId = xml_xpath_get_integer(xml_xpath_context, "artistId");
+            album->artistName = xml_xpath_get_string(xml_xpath_context, "artistName");
+            album->trackCount = xml_xpath_get_integer(xml_xpath_context, "trackCount");
+            album->albumSize = xml_xpath_get_integer(xml_xpath_context, "albumSize");
+            album->hasArt = xml_xpath_get_integer(xml_xpath_context, "hasArt");
+
+            mp3tunes_locker_album_list_add(albums, album);
+            xml_xpath_deinit(xml_xpath_context);
+        }
+        xmlXPathFreeObject(xpath_obj);
+    }
+    if( tracks != NULL) {
+        xmlXPathObjectPtr xpath_obj;
+        xmlNodeSetPtr nodeset;
+        xmlNodePtr node;
+        int i;
+
+        mp3tunes_locker_track_list_init(tracks);
+
+        xpath_obj = xml_xpath_query(xml_xpath, "/mp3tunes/trackList/item");
+
+        if (xpath_obj == NULL) {
+            return -1;
+        }
+
+        nodeset = xpath_obj->nodesetval;
+
+        for (i = 0; i < nodeset->nodeNr; i++) {
+            node = nodeset->nodeTab[i];
+            xml_xpath_t* xml_xpath_context = xml_xpath_context_init(xml_xpath, node);
+            mp3tunes_locker_track_t *track = (mp3tunes_locker_track_t*)malloc(sizeof(mp3tunes_locker_track_t));
+            memset(track, 0, sizeof(mp3tunes_locker_track_t));
+
+            track->trackId = xml_xpath_get_integer(xml_xpath_context, "trackId");
+            track->trackTitle = xml_xpath_get_string(xml_xpath_context, "trackTitle");
+            track->trackNumber = xml_xpath_get_integer(xml_xpath_context, "trackNumber");
+            track->trackLength = xml_xpath_get_float(xml_xpath_context, "trackLength");
+            track->trackFileName = xml_xpath_get_string(xml_xpath_context, "trackFileName");
+            track->trackFileKey = xml_xpath_get_string(xml_xpath_context, "trackFileKey");
+            track->trackFileSize = xml_xpath_get_integer(xml_xpath_context, "trackFileSize");
+            track->downloadURL = xml_xpath_get_string(xml_xpath_context, "downloadURL");
+            track->playURL = xml_xpath_get_string(xml_xpath_context, "playURL");
+            track->albumId = xml_xpath_get_integer(xml_xpath_context, "albumId");
+            track->albumTitle = xml_xpath_get_string(xml_xpath_context, "albumTitle");
+            track->albumYear = xml_xpath_get_integer(xml_xpath_context, "albumYear");
+            track->artistName = xml_xpath_get_string(xml_xpath_context, "artistName");
+            track->artistId = xml_xpath_get_integer(xml_xpath_context, "artistId");
+
+            mp3tunes_locker_track_list_add(tracks, track);
+            xml_xpath_deinit(xml_xpath_context);
+        }
+        xmlXPathFreeObject(xpath_obj);
+    }
+    xml_xpath_deinit(xml_xpath);
+    return 0;
+}
+
 int mp3tunes_locker_sync_down(mp3tunes_locker_object_t *obj, char* type, char* bytes_local, char* files_local, char* keep_local_files, char* playlist_id) {
     xml_xpath_t* xml_xpath;
     xmlBufferPtr buf;
