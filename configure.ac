@@ -7,7 +7,7 @@ AC_PROG_LIBTOOL
 
 AC_HEADER_STDC
 
-CFLAGS="$CFLAGS -g -std=gnu99 -W -Wall -Werror"
+CFLAGS="$CFLAGS -g -std=gnu99 -W -Wall"
 
 PKG_CHECK_MODULES(LIBXML, libxml-2.0)
 AC_SUBST(LIBXML_LIBS)
