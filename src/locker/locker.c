@@ -22,12 +22,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <curl/curl.h>
+#include <openssl/md5.h>
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xmlreader.h>
 #include <libxml/xpath.h>
 #include "locker.h"
-#include <openssl/md5.h>
 #include "md5.h"
 
 typedef struct {
@@ -192,6 +192,7 @@ int mp3tunes_locker_init( mp3tunes_locker_object_t **obj, char *partner_token ) 
 
     o->partner_token = strdup(partner_token);
     o->session_id = NULL;
+    o->error_message = NULL;
 
     o->server_api = getenv("MP3TUNES_SERVER_API");
     if(o->server_api == NULL) {
@@ -215,6 +216,7 @@ int mp3tunes_locker_deinit( mp3tunes_locker_object_t **obj ) {
     mp3tunes_locker_object_t *o = *obj;
     free(o->partner_token);
     free(o->session_id);
+    free(o->error_message);
     free(o);
     return TRUE;
 }
@@ -423,12 +425,16 @@ int mp3tunes_locker_login(mp3tunes_locker_object_t *obj, char* username, char* p
     xml_xpath = mp3tunes_locker_api_simple_fetch(obj, MP3TUNES_SERVER_LOGIN, "api/v1/login/", "username", username, "password", password, NULL);
 
     if (xml_xpath == NULL) {
-        return -1;
+        return -2;
     }
     
     status = xml_xpath_get_string(xml_xpath, "/mp3tunes/status");
 
     if (status[0] != '1') {
+      /*printf("status is %s\n", status);*/
+        char* error = xml_xpath_get_string(xml_xpath, "/mp3tunes/errorMessage");
+        /*printf("error is %s\n", error);*/
+        obj->error_message = error;
         free(status);
         xml_xpath_deinit(xml_xpath);
         return -1;

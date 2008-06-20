@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
     mp3tunes_locker_list_item_t *playlist_item;
     mp3tunes_locker_playlist_t *playlist;
     */
-
+    /*
     mp3tunes_locker_artist_list_t *artists_list;
     mp3tunes_locker_list_item_t *artist_item;
     mp3tunes_locker_artist_t *artist;
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
     mp3tunes_locker_track_list_t *tracks_list;
     mp3tunes_locker_list_item_t *track_item;
     mp3tunes_locker_track_t *track;
-    
+    */
 
     argc = argc;
     argv = argv;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 
     ///mp3tunes_locker_login(mp3tunes_locker, "demo@mp3tunes.com", "demo");
     mp3tunes_locker_login(mp3tunes_locker, "unnamedrambler@gmail.com", "br34nn4");
-    mp3tunes_locker_upload_track(mp3tunes_locker, "/share/mae-everglow/01_Prologue.mp3");
+    mp3tunes_locker_upload_track(mp3tunes_locker, "/share/mae-everglow/02_We_re_So_Far_Away.mp3");
     /*
     mp3tunes_locker_playlists(mp3tunes_locker, &playlist_list);
 
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
         
        //  mp3tunes_locker_albums_with_artist_id(mp3tunes_locker, &albums_list, artist->artistId);
   //      mp3tunes_locker_albums_search(mp3tunes_locker, &albums_list, "red");
-       /* 
+       * 
         album_item = albums_list->first;
         while (album_item != NULL) {
             album = (mp3tunes_locker_album_t*)album_item->value;
