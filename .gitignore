@@ -44,5 +44,10 @@ src/locker/liblocker_la-locker.o
 *.lo
 *.la
 Doxyfile
-*.kdevelop
+*.kdev*
+autogen.sh
 *~
+*.am
+configure
+debug/
+*.in
