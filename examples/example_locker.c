@@ -33,7 +33,8 @@ int main(int argc, char* argv[]) {
     ///mp3tunes_locker_login(mp3tunes_locker, "demo@mp3tunes.com", "demo");
     mp3tunes_locker_login(mp3tunes_locker, "unnamedrambler@gmail.com", "br34nn4");
     printf("locker loading\n");
-    mp3tunes_locker_load_track(mp3tunes_locker, "http://fritotitan.podomatic.com/enclosure/2006-02-03T20_36_25-08_00.mp3"); 
+    char* url = "http://ampache.server.net/play/index.php?song=85879&uid=-1&sid=f453fd1282edc620b124e9beec2ec25c&name=/Jay%20Tee%20-%20Off%20In%20The%20Bay.mp3\0";
+    mp3tunes_locker_load_track(mp3tunes_locker, url);
     /*
     mp3tunes_locker_playlists(mp3tunes_locker, &playlist_list);
 
