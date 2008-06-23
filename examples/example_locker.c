@@ -32,7 +32,8 @@ int main(int argc, char* argv[]) {
 
     ///mp3tunes_locker_login(mp3tunes_locker, "demo@mp3tunes.com", "demo");
     mp3tunes_locker_login(mp3tunes_locker, "unnamedrambler@gmail.com", "br34nn4");
-    mp3tunes_locker_upload_track(mp3tunes_locker, "/share/mae-everglow/02_We_re_So_Far_Away.mp3");
+    printf("locker loading\n");
+    mp3tunes_locker_load_track(mp3tunes_locker, "http://fritotitan.podomatic.com/enclosure/2006-02-03T20_36_25-08_00.mp3"); 
     /*
     mp3tunes_locker_playlists(mp3tunes_locker, &playlist_list);
 
