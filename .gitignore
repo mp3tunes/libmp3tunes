@@ -47,7 +47,5 @@ Doxyfile
 *.kdev*
 autogen.sh
 *~
-*.am
 configure
 debug/
-*.in
