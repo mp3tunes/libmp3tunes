@@ -1,0 +1,18 @@
+Source: libmp3tunes
+Section: user/other
+Priority: optional
+Maintainer: Derek Ford <derek@mp3tunes.com>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.0
+
+Package: libmp3tunes
+Architecture: armel i386
+Description: A library providing access to the services provided by MP3tunes
+
+Package: libmp3tunes-dev
+Architecture: armel i386
+Description: A library providing access to the services provided by MP3tunes
+
+Package: libmp3tunes-dbg
+Architecture: armel i386
+Description: A library providing access to the services provided by MP3tunes

@@ -1,0 +1,3 @@
+usr/include
+usr/lib/libmp3tunes*.so
+usr/lib/pkgconfig/libmp3tunes.pc

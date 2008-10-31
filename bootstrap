@@ -1,0 +1,42 @@
+#!/bin/sh
+
+set -x
+
+# Check for automake
+amvers="none"
+if automake-1.7 --version >/dev/null 2>&1
+then
+  amvers="-1.7"
+else
+  if automake-1.6 --version >/dev/null 2>&1
+  then
+    amvers="-1.6"
+  else
+    if automake-1.5 --version >/dev/null 2>&1
+    then
+      amvers="-1.5"
+    else
+      if automake --version > /dev/null 2>&1
+      then
+        amvers=`automake --version | sed -e '1s/[^0-9]*//' -e q`
+  
+        if expr "$amvers" "<" "1.5" > /dev/null 2>&1
+        then amvers="none"
+        else amvers=""
+        fi        
+      fi
+    fi 
+  fi
+fi
+
+if test x$amvers = xnone
+then
+  set +x
+  echo "bootstrap: you need automake version 1.5 or later"
+  exit 1
+fi
+
+aclocal-1.7
+autoconf
+libtoolize --force
+automake${amvers} --add-missing --copy || exit 1
