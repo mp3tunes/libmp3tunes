@@ -1,4 +1,4 @@
-AC_PREREQ(2.62)
+AC_PREREQ(2.61)
 AC_INIT(libmp3tunes, 1.0)
 AM_INIT_AUTOMAKE([foreign])
 
