@@ -21,4 +21,4 @@ endif
 libmp3tunes_la_SOURCES = mp3tunes.c
 
 libmp3tunes_la_LDFLAGS = -version-info 1:0:0
-libmp3tunes_la_CFLAGS = -I../include 
+libmp3tunes_la_CFLAGS = -I$(top_srcdir)/include 
