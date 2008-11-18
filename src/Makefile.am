@@ -11,12 +11,12 @@ libmp3tunes_la_LIBADD += locker/liblocker.la
 
 endif 
 
-if BUILD_HARMONY_COMPONENTS
+#if BUILD_HARMONY_COMPONENTS
 
-SUBDIRS += harmony
-libmp3tunes_la_LIBADD += harmony/libharmony.la
+#SUBDIRS += harmony
+#libmp3tunes_la_LIBADD += harmony/libharmony.la
 
-endif
+#endif
 
 libmp3tunes_la_SOURCES = mp3tunes.c
 
