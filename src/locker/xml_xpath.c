@@ -100,15 +100,13 @@ gint mp3tunes_xml_xpath_get_integer(MP3tunesXMLXPath *xml_xpath, char* xpath_exp
     free(str);
     return result;
 }
-/*
 
-float xml_xpath_get_float(xml_xpath_t *xml_xpath, char* xpath_expression) {
+float mp3tunes_xml_xpath_get_float(MP3tunesXMLXPath *xml_xpath, char* xpath_expression) {
     float result = 0.0;
-    char* str = xml_xpath_get_string(xml_xpath, xpath_expression);
+    char* str = mp3tunes_xml_xpath_get_string(xml_xpath, xpath_expression);
     if (str != NULL) {
         result = atof(str);
     }
     free(str);
     return result;
 }
-*/

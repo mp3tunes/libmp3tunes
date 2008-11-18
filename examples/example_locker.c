@@ -6,12 +6,6 @@ int main(int argc, char* argv[]) {
     MP3tunesLocker* mp3tunes_locker;
 
     /*
-    mp3tunes_locker_playlist_list_t *playlist_list;
-    mp3tunes_locker_list_item_t *playlist_item;
-    mp3tunes_locker_playlist_t *playlist;
-    */
-
-    /*
     mp3tunes_locker_artist_list_t *artists_list;
     mp3tunes_locker_list_item_t *artist_item;
     mp3tunes_locker_artist_t *artist;
@@ -42,29 +36,20 @@ int main(int argc, char* argv[]) {
     while (playlist_item != NULL) {
         mp3tunes_locker_playlist_t* playlist = (mp3tunes_locker_playlist_t*)playlist_item->data;
         g_print("Playlist ID: %s Title: %s\n", playlist->playlistId, playlist->title);
+
+        GList* tracks = mp3tunes_locker_get_tracks_with_playlist_id(mp3tunes_locker, playlist->playlistId);
+
+        GList* track_item = g_list_first(tracks);
+
+        while (track_item != NULL) {
+            mp3tunes_locker_track_t* track = (mp3tunes_locker_track_t*)track_item->data;
+            g_print("    Track ID: %d Title %s\n", track->trackId, track->trackTitle);
+            track_item = g_list_next(track_item);
+        }
+        g_list_free(tracks);
         playlist_item = g_list_next(playlist_item);
     }
-
-
-    /*
-    playlist_item = playlist_list->first;
-    while (playlist_item != NULL) {
-        playlist = (mp3tunes_locker_playlist_t*)playlist_item->value;
-        printf("Playlist ID: %s Title: %s\n", playlist->playlistId, playlist->title);
-        mp3tunes_locker_tracks_with_playlist_id(mp3tunes_locker, &tracks_list, playlist->playlistId);
-
-        track_item = tracks_list->first;
-        while (track_item != NULL) {
-            track = (mp3tunes_locker_track_t*)track_item->value;
-            printf("    Track ID: %d Title %s\n", track->trackId, track->trackTitle);
-            track_item = track_item->next;
-        }
-        mp3tunes_locker_track_list_deinit(&tracks_list);
-        
-        playlist_item = playlist_item->next;
-    }
-    mp3tunes_locker_playlist_list_deinit(&playlist_list);
-    */
+    g_list_free(playlists);
 
 
     /*

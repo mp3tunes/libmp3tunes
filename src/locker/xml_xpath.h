@@ -35,5 +35,7 @@ MP3tunesXMLXPath* mp3tunes_xml_xpath_new_with_context(MP3tunesXMLXPath* parent, 
 xmlXPathObjectPtr mp3tunes_xml_xpath_query(MP3tunesXMLXPath *self, gchar* xpath_expression);
 gchar* mp3tunes_xml_xpath_get_string(MP3tunesXMLXPath* self, gchar* xpath_expression);
 gint mp3tunes_xml_xpath_get_integer(MP3tunesXMLXPath* self, gchar* xpath_expression);
+gfloat mp3tunes_xml_xpath_get_float(MP3tunesXMLXPath* self, gchar* xpath_expression);
+
 
 #endif

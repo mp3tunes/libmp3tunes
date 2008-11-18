@@ -105,6 +105,8 @@ MP3tunesLocker* mp3tunes_locker_new(gchar* partner_token, gchar* device_identifi
 MP3tunesLocker* mp3tunes_locker_new_with_email_and_password(gchar* partner_token, gchar* device_identifier, gchar* email, gchar* password);
 GList* mp3tunes_locker_get_playlists(MP3tunesLocker* self);
 
+GList* mp3tunes_locker_get_tracks_with_playlist_id(MP3tunesLocker *obj, gchar* playlist_id);
+
 /*
 int mp3tunes_locker_session_valid( mp3tunes_locker_object_t *obj );
 int mp3tunes_locker_artists( mp3tunes_locker_object_t *obj, mp3tunes_locker_artist_list_t **artists_return);
