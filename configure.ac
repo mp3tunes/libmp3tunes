@@ -13,7 +13,7 @@ AC_PROG_LIBTOOL
 
 AC_HEADER_STDC
 
-CFLAGS="$CFLAGS -W -Wall -fgnu89-inline -Werror -DG_LOG_DOMAIN=\\\"libmp3tunes\\\""
+CFLAGS="$CFLAGS -W -Wall -fgnu89-inline -Werror -fno-strict-aliasing -DG_LOG_DOMAIN=\\\"libmp3tunes\\\""
 
 AC_ARG_WITH([locker],
   AS_HELP_STRING([--without-locker],[Disable locker support]),

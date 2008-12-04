@@ -53,6 +53,8 @@ struct _MP3tunesLocker {
 
 struct _MP3tunesLockerClass {
     GObjectClass parent_class;
+
+    guint download_signal_id;
 };
 
 GType mp3tunes_locker_get_type(void);
@@ -101,6 +103,14 @@ typedef struct {
     int playlistSize;
 } mp3tunes_locker_playlist_t;
 
+typedef struct {
+    char* filekey;
+    char* artist_name;
+    char* album_title;
+    char* track_title;
+    
+} mp3tunes_locker_download_t;
+
 MP3tunesLocker* mp3tunes_locker_new(gchar* partner_token, gchar* device_identifier);
 MP3tunesLocker* mp3tunes_locker_new_with_email_and_password(gchar* partner_token, gchar* device_identifier, gchar* email, gchar* password);
 
@@ -111,6 +121,8 @@ GList* mp3tunes_locker_get_albums_with_artist_id(MP3tunesLocker *self, int artis
 GList* mp3tunes_locker_get_tracks_with_album_id(MP3tunesLocker *self, int album_id);
 
 GList* mp3tunes_locker_get_tracks_with_playlist_id(MP3tunesLocker *obj, gchar* playlist_id);
+
+int mp3tunes_locker_sync_down(MP3tunesLocker *self, char* type, char* bytes_local, char* files_local, char* keep_local_files, char* playlist_id);
 
 /*
 int mp3tunes_locker_session_valid( mp3tunes_locker_object_t *obj );

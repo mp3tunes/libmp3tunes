@@ -33,6 +33,8 @@ examples/example_daemon
 examples/example_daemon-example_daemon.o
 examples/example_locker
 examples/example_locker-example_locker.o
+examples/example_sync
+examples/example_sync-example_sync.o
 src/.libs/
 src/harmony/.libs/
 src/harmony/libharmony.la
